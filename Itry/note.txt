@@ -1,0 +1,59 @@
+code-3.1
+#./mydocker run -ti /bin/sh
+#docker run -ti ubuntu:xxx /bin/sh
+#./mydocker run -ti /bin/ls
+
+
+code-3.2
+#cat /proc/self/mountinfo
+/sys/fs/cgroup/memory
+#sudo ./mydocker run -ti -m 100m stress --vm-bytes 200m --vm-keep -m 1
+#nohup stress --vm-bytes 200m --vm-keep -m 1 &
+#sudo ./mydocker run -ti -cpushare 512 stress --vm-bytes 200m --vm-keep -m 1
+
+cod-3.3
+#sudo ./mydocker run -ti ls -l
+#sudo ./mydocker run -ti bash
+
+code-4.1
+#docker pull busybox
+#docker run -d busybox top -b
+#./mydocker run -ti sh
+#mount
+
+code-4.2
+CreateReadOnlyLayer函数新建busybox文件夹，将busybox.tar解压到busybox目录下，作为容器的只读层
+CreateWriteLayer函数创建了一个名为writeLayer的文件夹，作为容器唯一的可写层
+在CreateMountPoint函数中，首先创建了mnt文件夹，作为挂载点，然后把writeLayer目录和busybox目录mount到mnt目录下
+最后在NewParentProcess函数中将容器使用的宿主机目录/root/busybox替换成/root/mnt
+#ls /root
+busybox.tar
+#sudo ./mydocker run -ti sh
+#ls /root
+#ls
+#mkdir tmp/qinyujia.txt
+#ls tmp
+#ls /root/busybox
+#ls /root/writeLayer
+#ls /root/writeLayer/tmp
+#ls /root
+
+code-4.3
+#sudo ./mydocker run -ti -v /root/volume:/containerVolume sh
+#cd containerVolume
+#echo -e "hello world" >> /containerVolume/test.txt
+#sudo ./mydocker run -ti -v /root/volume:/containerVolume sh
+
+code-4.4
+镜像打包
+#sudo ./mydocker run -ti sh
+#ls /root
+#./mydocker commit image
+#ls /root
+#mkdir untar
+#cd untar
+#tar -xvf /root/image.tar
+#ls
+
+
+
