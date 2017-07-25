@@ -18,6 +18,9 @@ cod-3.3
 code-4.1
 #docker pull busybox
 #docker run -d busybox top -b
+#docker export -o busybox.tar 835xxx(容器ID)
+#tar -xvf busybox.tar -C busybox/
+
 #./mydocker run -ti sh
 #mount
 
@@ -39,6 +42,12 @@ busybox.tar
 #ls /root
 
 code-4.3
+启动容器的时候：
+1、创建只读层（busybox）
+2、创建容器读写层（writeLayer）
+3、创建挂载点（mnt）,并把只读层和读写层挂载到挂载点
+4、将挂载点作为容器的根目录
+
 #sudo ./mydocker run -ti -v /root/volume:/containerVolume sh
 #cd containerVolume
 #echo -e "hello world" >> /containerVolume/test.txt
